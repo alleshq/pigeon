@@ -1,4 +1,6 @@
 const axios = require("axios");
+const fs = require("fs");
+const template = fs.readFileSync(`${__dirname}/template.html`, "utf8").split("[x]");
 
 // Express
 const express = require("express");
@@ -47,7 +49,16 @@ app.post("/send/:id", (req, res) => {
                 to: [email],
                 from: "The Alles Robot <robot@alles.cx>",
                 subject: req.body.subject,
-                html_body: req.body.content
+                html_body:
+                    template[0] +
+                    req.body.content +
+                    template[1] +
+                    email +
+                    template[2] +
+                    req.params.id +
+                    template[3] +
+                    (new Date().toUTCString()) +
+                    template[4]
             },
             {
                 headers: {
