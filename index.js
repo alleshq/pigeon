@@ -1,6 +1,7 @@
 const axios = require("axios");
 const fs = require("fs");
 const template = fs.readFileSync(`${__dirname}/template.html`, "utf8").split("[x]");
+const stripHtml = require("string-strip-html");
 
 // Express
 const express = require("express");
@@ -53,6 +54,7 @@ app.post("/send/:id", (req, res) => {
                 to: [email],
                 from: "The Alles Robot <robot@alles.cx>",
                 subject: req.body.subject,
+                plain_body: stripHtml(req.body.content.replace(/<br \/>/g, "\n")),
                 html_body:
                     template[0] +
                     req.body.content +
