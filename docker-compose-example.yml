@@ -10,4 +10,4 @@ services:
         - SECRET=SECRET
         - POSTAL=POSTAL
     volumes:
-      - db:db
+      - ./db:./db
