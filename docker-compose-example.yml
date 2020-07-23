@@ -9,3 +9,5 @@ services:
     environment:
         - SECRET=SECRET
         - POSTAL=POSTAL
+    volumes:
+      - db:db
