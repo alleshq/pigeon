@@ -7,6 +7,10 @@ const express = require("express");
 const app = express();
 app.use(require("body-parser").json());
 app.use((err, req, res, next) => res.status(500).json({ err: "internalError" }));
+app.use((req, res, next) => {
+    if (req.headers.authorization === process.env.SECRET) next();
+    else res.status(401).json({ err: "badAuthorization" });
+});
 app.listen(8080);
 
 // Database
