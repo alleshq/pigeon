@@ -71,10 +71,8 @@ app.post("/send/:id", (req, res) => {
                     "X-Server-API-Key": process.env.POSTAL
                 }
             }
-        ).then(() => {
-            res.json({});
-        }).catch(() => {
-            res.status(500).json({ err: "internalError" });
-        });
+        )
+            .then(() => res.json({}))
+            .catch(() => res.status(500).json({ err: "internalError" }));
     });
 });
